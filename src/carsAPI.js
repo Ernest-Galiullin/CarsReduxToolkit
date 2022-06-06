@@ -1,0 +1,2 @@
+export const carsAPI =
+  'https://s3.us-west-2.amazonaws.com/secure.notion-static.com/77b765e0-af48-4587-bf13-180703aae3ac/data.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220605%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220605T072418Z&X-Amz-Expires=86400&X-Amz-Signature=bec1afd5e73fc95d567253ca0b65072ee3059e87359b339d6f664b3d235005ef&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22data.json%22&x-id=GetObject'
