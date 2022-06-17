@@ -2,8 +2,8 @@ import { Grid, Card, Typography, CardMedia, CardContent } from '@mui/material'
 
 export default function CarsItem({ item }) {
   return (
-    <Grid item xs={4}>
-      <Card sx={{ maxWidth: 345 }}>
+    <Grid item xs={12} sm={6} md={4} display="flex" justifyContent="center">
+      <Card sx={{ maxWidth: 300 }}>
         <CardContent>
           <Typography
             variant="h5"
