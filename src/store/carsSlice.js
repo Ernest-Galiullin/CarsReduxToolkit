@@ -1,9 +1,9 @@
-import {createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   cars: [],
   filtredCars: [],
-  selectedBrand: '',
+  selectedBrand: 'All',
   selectedYear: ''
 }
 
