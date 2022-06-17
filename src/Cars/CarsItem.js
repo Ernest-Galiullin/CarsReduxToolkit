@@ -1,11 +1,26 @@
-import React from 'react'
+import { Grid, Card, Typography, CardMedia, CardContent } from '@mui/material'
 
-export default function CarsItem({item}) {
+export default function CarsItem({ item }) {
   return (
-    <div className="car-item">
-      <div className="car-name">{`Name: ${item.name}`}</div>
-      <div className="car-year">{`Year: ${item.release_year}`}</div>
-      <img className="car-image" src={item.url} alt="car-img" />
-    </div>
+    <Grid item xs={4}>
+      <Card sx={{ maxWidth: 345 }}>
+        <CardContent>
+          <Typography
+            variant="h5"
+            component="div"
+          >{`Name: ${item.name}`}</Typography>
+          <Typography
+            variant="h6"
+            component="div"
+          >{`Year: ${item.release_year}`}</Typography>
+        </CardContent>
+        <CardMedia
+          component="img"
+          height="200"
+          image={item.url}
+          alt="car-img"
+        />
+      </Card>
+    </Grid>
   )
 }

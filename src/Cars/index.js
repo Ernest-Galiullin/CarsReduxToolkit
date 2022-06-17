@@ -1,22 +1,23 @@
-import {useEffect} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   updateCars,
   updateFiltredCars,
   updateSelectYear,
   updateSelectBrand
 } from '../store/carsSlice'
-import {carsAPI} from '../carsAPI'
+import { carsAPI } from '../carsAPI'
+
 import CarsList from './CarsList'
 import YearOptions from './YearOptions'
 import BrandFilter from './BrandFilter'
 
 export default function Cars() {
-  const {cars, selectedYear, selectedBrand} = useSelector(state => state.cars)
+  const { cars, selectedYear, selectedBrand } = useSelector(state => state.cars)
   const dispatch = useDispatch()
 
   const filterByBrand = filteredData => {
-    if (!selectedBrand) {
+    if (selectedBrand.toLowerCase() === 'all') {
       return filteredData
     }
 
@@ -25,6 +26,7 @@ export default function Cars() {
     )
     return filteredCars
   }
+
   const filterByYear = filteredData => {
     if (!selectedYear) {
       return filteredData
@@ -63,6 +65,7 @@ export default function Cars() {
       }, 1500)
     }
     wait()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -70,6 +73,7 @@ export default function Cars() {
     filteredData = filterByBrand(filteredData)
 
     dispatch(updateFiltredCars(filteredData))
+    // eslint-disable-next-line
   }, [selectedBrand, selectedYear])
 
   return (
