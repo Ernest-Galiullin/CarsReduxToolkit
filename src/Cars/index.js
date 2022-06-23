@@ -8,8 +8,12 @@ import {
   updateSelectBrand,
   selectCars,
   selectBrand,
-  selectYear
+  selectYear,
+  selectBrandOptions,
+  selectAllYears,
+  selectFiltredCars
 } from '../store/carsSlice'
+
 import data from '../data'
 import CarsList from './CarsList'
 import YearOptions from './YearOptions'
@@ -18,11 +22,12 @@ import * as functions from './functions'
 
 export default function Cars() {
   const cars = useSelector(selectCars)
+  const filtredCars = useSelector(selectFiltredCars)
+  const years = useSelector(selectAllYears)
   const selectedYear = useSelector(selectYear)
   const selectedBrand = useSelector(selectBrand)
+  const brandOptions = useSelector(selectBrandOptions)
   const dispatch = useDispatch()
-
-  console.log(selectedBrand)
 
   const handleBrandChange = event => {
     const currentBrand = event.target.value
@@ -63,11 +68,19 @@ export default function Cars() {
   return (
     <>
       {cars.length === 0 && <div>Loading...</div>}
-      {cars.length >= 1 && (
+      {cars.length > 0 && (
         <>
-          <YearOptions handleYearChange={handleYearChange} />
-          <BrandFilter handleBrandChange={handleBrandChange} />
-          <CarsList />
+          <YearOptions
+            handleYearChange={handleYearChange}
+            value={selectedYear}
+            years={years}
+          />
+          <BrandFilter
+            handleBrandChange={handleBrandChange}
+            value={selectedBrand}
+            options={brandOptions}
+          />
+          <CarsList cars={filtredCars} />
         </>
       )}
     </>

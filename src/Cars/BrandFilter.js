@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux'
 import {
   Typography,
   MenuItem,
@@ -8,10 +7,8 @@ import {
   Select
 } from '@mui/material'
 
-export default function BrandFilter(props) {
-  const { selectedBrand } = useSelector(state => state.cars)
-
-  const optionsList = ['All', 'BMW', 'VW', 'Audi'].map(brandName => (
+export default function BrandFilter({ value, handleBrandChange, options }) {
+  const optionsList = options.map(brandName => (
     <MenuItem key={brandName} value={brandName}>
       {brandName}
     </MenuItem>
@@ -23,11 +20,7 @@ export default function BrandFilter(props) {
           <Typography variant="h5" component="h5" align="center">
             Filter by Brand
           </Typography>
-          <Select
-            id="brand-input"
-            value={selectedBrand}
-            onChange={props.handleBrandChange}
-          >
+          <Select id="brand-input" value={value} onChange={handleBrandChange}>
             {optionsList}
           </Select>
         </FormControl>
