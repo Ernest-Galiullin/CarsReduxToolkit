@@ -33,4 +33,8 @@ export const {
   updateSelectBrand
 } = carsSlice.actions
 
+export const selectCars = state => state.cars.cars
+export const selectBrand = state => state.cars.selectedBrand
+export const selectYear = state => state.cars.selectedYear
+
 export default carsSlice.reducer

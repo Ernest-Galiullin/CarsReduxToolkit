@@ -1,42 +1,28 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
 import {
   updateCars,
   updateFiltredCars,
   updateSelectYear,
-  updateSelectBrand
+  updateSelectBrand,
+  selectCars,
+  selectBrand,
+  selectYear
 } from '../store/carsSlice'
 import data from '../data'
-
 import CarsList from './CarsList'
 import YearOptions from './YearOptions'
 import BrandFilter from './BrandFilter'
+import * as functions from './functions'
 
 export default function Cars() {
-  const { cars, selectedYear, selectedBrand } = useSelector(state => state.cars)
+  const cars = useSelector(selectCars)
+  const selectedYear = useSelector(selectYear)
+  const selectedBrand = useSelector(selectBrand)
   const dispatch = useDispatch()
 
-  const filterByBrand = filteredData => {
-    if (selectedBrand.toLowerCase() === 'all') {
-      return filteredData
-    }
-
-    const filteredCars = filteredData.filter(
-      car => car.name.split(' ').indexOf(selectedBrand) !== -1
-    )
-    return filteredCars
-  }
-
-  const filterByYear = filteredData => {
-    if (!selectedYear) {
-      return filteredData
-    }
-
-    const filteredCars = filteredData.filter(
-      car => car.release_year === selectedYear
-    )
-    return filteredCars
-  }
+  console.log(selectedBrand)
 
   const handleBrandChange = event => {
     const currentBrand = event.target.value
@@ -67,8 +53,8 @@ export default function Cars() {
   }, [])
 
   useEffect(() => {
-    let filteredData = filterByYear(cars)
-    filteredData = filterByBrand(filteredData)
+    let filteredData = functions.filterByYear(cars, selectedYear)
+    filteredData = functions.filterByBrand(filteredData, selectedBrand)
 
     dispatch(updateFiltredCars(filteredData))
     // eslint-disable-next-line
