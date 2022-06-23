@@ -6,7 +6,7 @@ import {
   updateSelectYear,
   updateSelectBrand
 } from '../store/carsSlice'
-import { carsAPI } from '../carsAPI'
+import data from '../data'
 
 import CarsList from './CarsList'
 import YearOptions from './YearOptions'
@@ -56,15 +56,13 @@ export default function Cars() {
   }
 
   useEffect(() => {
-    const wait = async function () {
-      const response = await fetch(carsAPI)
-      const data = await response.json()
+    ;(function () {
       setTimeout(() => {
         dispatch(updateCars(data))
         dispatch(updateFiltredCars(data))
       }, 1500)
-    }
-    wait()
+    })()
+
     // eslint-disable-next-line
   }, [])
 
