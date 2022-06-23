@@ -1,42 +1,33 @@
 import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
 import {
   updateCars,
   updateFiltredCars,
   updateSelectYear,
-  updateSelectBrand
+  updateSelectBrand,
+  selectCars,
+  selectBrand,
+  selectYear,
+  selectBrandOptions,
+  selectAllYears,
+  selectFiltredCars
 } from '../store/carsSlice'
-import { carsAPI } from '../carsAPI'
 
+import data from '../data'
 import CarsList from './CarsList'
 import YearOptions from './YearOptions'
 import BrandFilter from './BrandFilter'
+import * as functions from './functions'
 
 export default function Cars() {
-  const { cars, selectedYear, selectedBrand } = useSelector(state => state.cars)
+  const cars = useSelector(selectCars)
+  const filtredCars = useSelector(selectFiltredCars)
+  const years = useSelector(selectAllYears)
+  const selectedYear = useSelector(selectYear)
+  const selectedBrand = useSelector(selectBrand)
+  const brandOptions = useSelector(selectBrandOptions)
   const dispatch = useDispatch()
-
-  const filterByBrand = filteredData => {
-    if (selectedBrand.toLowerCase() === 'all') {
-      return filteredData
-    }
-
-    const filteredCars = filteredData.filter(
-      car => car.name.split(' ').indexOf(selectedBrand) !== -1
-    )
-    return filteredCars
-  }
-
-  const filterByYear = filteredData => {
-    if (!selectedYear) {
-      return filteredData
-    }
-
-    const filteredCars = filteredData.filter(
-      car => car.release_year === selectedYear
-    )
-    return filteredCars
-  }
 
   const handleBrandChange = event => {
     const currentBrand = event.target.value
@@ -56,21 +47,19 @@ export default function Cars() {
   }
 
   useEffect(() => {
-    const wait = async function () {
-      const response = await fetch(carsAPI)
-      const data = await response.json()
+    ;(function () {
       setTimeout(() => {
         dispatch(updateCars(data))
         dispatch(updateFiltredCars(data))
       }, 1500)
-    }
-    wait()
+    })()
+
     // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
-    let filteredData = filterByYear(cars)
-    filteredData = filterByBrand(filteredData)
+    let filteredData = functions.filterByYear(cars, selectedYear)
+    filteredData = functions.filterByBrand(filteredData, selectedBrand)
 
     dispatch(updateFiltredCars(filteredData))
     // eslint-disable-next-line
@@ -79,11 +68,19 @@ export default function Cars() {
   return (
     <>
       {cars.length === 0 && <div>Loading...</div>}
-      {cars.length >= 1 && (
+      {cars.length > 0 && (
         <>
-          <YearOptions handleYearChange={handleYearChange} />
-          <BrandFilter handleBrandChange={handleBrandChange} />
-          <CarsList />
+          <YearOptions
+            handleYearChange={handleYearChange}
+            value={selectedYear}
+            years={years}
+          />
+          <BrandFilter
+            handleBrandChange={handleBrandChange}
+            value={selectedBrand}
+            options={brandOptions}
+          />
+          <CarsList cars={filtredCars} />
         </>
       )}
     </>

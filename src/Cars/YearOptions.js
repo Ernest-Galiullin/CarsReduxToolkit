@@ -1,12 +1,9 @@
-import { useSelector } from 'react-redux'
 import { Typography, Grid, Button, Container } from '@mui/material'
 
-export default function YearOptions(props) {
-  const { selectedYear } = useSelector(state => state.cars)
-
-  const renderYearOptions = [2018, 2019, 2020].map(year => (
+export default function YearOptions({ handleYearChange, value, years }) {
+  const renderYearOptions = years.map(year => (
     <Button
-      variant={selectedYear === year ? 'contained' : 'text'}
+      variant={value === year ? 'contained' : 'text'}
       key={year}
       id={year}
     >
@@ -28,7 +25,7 @@ export default function YearOptions(props) {
         <Grid
           container
           id="year-options"
-          onClick={props.handleYearChange}
+          onClick={handleYearChange}
           direction="row"
           justifyContent="space-around"
         >
