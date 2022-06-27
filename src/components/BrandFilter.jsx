@@ -8,11 +8,12 @@ import {
 } from '@mui/material'
 
 export default function BrandFilter({ value, handleBrandChange, options }) {
-  const optionsList = options.map(brandName => (
+  const displayOptions = options.map(brandName => (
     <MenuItem key={brandName} value={brandName}>
       {brandName}
     </MenuItem>
   ))
+
   return (
     <Grid container direction="row" justifyContent="center" sx={{ mb: '1rem' }}>
       <Box sx={{ maxWidth: 300 }}>
@@ -21,7 +22,7 @@ export default function BrandFilter({ value, handleBrandChange, options }) {
             Filter by Brand
           </Typography>
           <Select id="brand-input" value={value} onChange={handleBrandChange}>
-            {optionsList}
+            {displayOptions}
           </Select>
         </FormControl>
       </Box>

@@ -1,7 +1,7 @@
 import { Typography, Grid, Button, Container } from '@mui/material'
 
 export default function YearOptions({ handleYearChange, value, years }) {
-  const renderYearOptions = years.map(year => (
+  const displayYearOptions = years.map(year => (
     <Button
       variant={value === year ? 'contained' : 'text'}
       key={year}
@@ -29,7 +29,7 @@ export default function YearOptions({ handleYearChange, value, years }) {
           direction="row"
           justifyContent="space-around"
         >
-          {renderYearOptions}
+          {displayYearOptions}
         </Grid>
       </Container>
     </>

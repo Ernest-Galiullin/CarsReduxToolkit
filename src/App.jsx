@@ -1,4 +1,4 @@
-import Cars from './cars'
+import Cars from './components'
 import { Container, Typography } from '@mui/material'
 
 export default function App() {
